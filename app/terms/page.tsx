@@ -1,41 +1,82 @@
+"use client"
+
 import Link from "next/link"
+import { motion } from "framer-motion"
+import { ArrowLeft, FileText, AlertTriangle, Ban, Scale } from "lucide-react"
+import { Header } from "@/components/layout/header"
+import { Footer } from "@/components/layout/footer"
+import { Card } from "@/components/ui/card"
+
+const sections = [
+  {
+    icon: FileText,
+    title: "ACCEPTANCE OF TERMS",
+    content: "By using StudyStream, you agree to these terms of service. StudyStream is a decentralized learning protocol provided as-is without warranty. If you do not agree, do not use the platform.",
+  },
+  {
+    icon: AlertTriangle,
+    title: "USE OF SERVICE",
+    content: "You agree to use StudyStream for lawful purposes only. You are solely responsible for your Solana wallet, any transactions you sign, and the content of your mentorship sessions. Abusive, fraudulent, or illegal activity will result in account suspension.",
+  },
+  {
+    icon: Ban,
+    title: "BLOCKCHAIN TRANSACTIONS",
+    content: "All transactions on the Solana blockchain are final and irreversible. StudyStream is not responsible for lost funds, failed transactions, or errors in smart contract interactions. Always verify transaction details before signing. Use devnet for testing.",
+  },
+  {
+    icon: Scale,
+    title: "LIMITATION OF LIABILITY",
+    content: "StudyStream is provided for educational and demonstration purposes. The protocol developers and contributors are not liable for any damages, losses, or issues arising from use of this platform. Participation is at your own risk.",
+  },
+]
 
 export default function TermsPage() {
   return (
-    <div className="min-h-screen bg-[#121212] text-white">
-      <header className="border-b border-white/10 bg-[#121212]/80 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-4xl items-center justify-between px-4 sm:px-6">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#14F195]">
-              <span className="text-lg font-bold text-black">P</span>
-            </div>
-            <span className="text-lg font-semibold">Peer<span className="text-[#14F195]">Chain</span></span>
+    <div className="min-h-screen bg-background">
+      <Header />
+      <main className="mx-auto max-w-4xl px-4 pt-32 pb-20 sm:px-6 lg:px-8">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-4">
+          <Link href="/" className="inline-flex items-center gap-1.5 text-xs font-mono text-muted-foreground hover:text-primary transition-colors">
+            <ArrowLeft className="h-3 w-3" /> BACK TO HOME
           </Link>
-          <Link href="/dashboard" className="text-sm text-gray-400 hover:text-white transition-colors">Dashboard</Link>
-        </div>
-      </header>
-      <main className="mx-auto max-w-4xl px-4 sm:px-6 py-16">
-        <h1 className="text-4xl font-bold mb-6">Terms of Service</h1>
-        <p className="text-gray-400 mb-4">Last updated: May 2026</p>
-        <div className="space-y-6 text-gray-400">
-          <section>
-            <h2 className="text-2xl font-semibold text-white mb-3">Acceptance of Terms</h2>
-            <p>By using PeerChain, you agree to these terms. PeerChain is a hackathon project and provided &quot;as is&quot; without warranty.</p>
-          </section>
-          <section>
-            <h2 className="text-2xl font-semibold text-white mb-3">Use of Service</h2>
-            <p>You agree to use PeerChain for lawful purposes only. You are responsible for your wallet and any transactions you sign.</p>
-          </section>
-          <section>
-            <h2 className="text-2xl font-semibold text-white mb-3">Blockchain Transactions</h2>
-            <p>All transactions on Solana are irreversible. PeerChain is not responsible for lost funds or failed transactions. Use test networks for experimentation.</p>
-          </section>
-          <section>
-            <h2 className="text-2xl font-semibold text-white mb-3">Limitation of Liability</h2>
-            <p>PeerChain is provided for educational and demonstration purposes. The creators are not liable for any damages arising from use of this platform.</p>
-          </section>
+        </motion.div>
+
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">TERMS OF <span className="text-gradient-magenta">SERVICE</span></h1>
+          <p className="mt-2 text-xs font-mono text-muted-foreground">LAST UPDATED: MAY 2026</p>
+        </motion.div>
+
+        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.15 }} className="mt-6 text-sm font-mono text-muted-foreground leading-relaxed">
+          By accessing or using StudyStream, you agree to be bound by these terms. Please read them carefully.
+        </motion.p>
+
+        <div className="mt-12 space-y-4">
+          {sections.map((s, i) => {
+            const Icon = s.icon
+            return (
+              <motion.div
+                key={s.title}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+              >
+                <Card className="p-5 hover:border-secondary/30 transition-all duration-300">
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-sm border border-secondary/30 bg-secondary/5">
+                      <Icon className="h-5 w-5 text-secondary" />
+                    </div>
+                    <div>
+                      <h2 className="text-sm font-bold font-mono text-foreground mb-2">{s.title}</h2>
+                      <p className="text-xs font-mono text-muted-foreground leading-relaxed">{s.content}</p>
+                    </div>
+                  </div>
+                </Card>
+              </motion.div>
+            )
+          })}
         </div>
       </main>
+      <Footer />
     </div>
   )
 }
