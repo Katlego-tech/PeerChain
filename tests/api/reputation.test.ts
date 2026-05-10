@@ -29,9 +29,10 @@ describe("Reputation API", () => {
       const body = await res.json()
       expect(body.success).toBe(true)
       expect(body.data).toBeDefined()
-      expect(body.data.user).toBe("testuser")
-      expect(typeof body.data.score).toBe("number")
-      expect(Array.isArray(body.data.peerRatings)).toBe(true)
+      expect(body.data.reputationScore).toBe(74)
+      expect(body.data.overallScore).toBe(74)
+      expect(body.data.totalSessions).toBe(28)
+      expect(typeof body.data.avgRating).toBe("number")
     })
   })
 

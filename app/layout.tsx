@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
-import './styles/globals.css' // Updated path
+import './styles/globals.css'
 
-// PeerChain Infrastructure Imports
 import { SolanaProvider } from '@/lib/solana-provider'
 import { ThemeProvider } from '@/components/shared/theme-provider'
+import { AuthProvider } from '@/lib/auth-context'
 
 const geistSans = Geist({
   subsets: ["latin"],
@@ -46,7 +46,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <SolanaProvider>
-            {children}
+            <AuthProvider>
+              {children}
+            </AuthProvider>
             {process.env.NODE_ENV === 'production' && <Analytics />}
           </SolanaProvider>
         </ThemeProvider>
