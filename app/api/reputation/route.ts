@@ -16,17 +16,22 @@ export async function GET(request: NextRequest) {
     }
 
     const connection = new Connection(SOLANA_RPC, "confirmed")
-    const userPubkey = new PublicKey(user)
 
-    // Fetch user profile from blockchain
-    // This is a placeholder - in reality, you'd fetch the PDA and deserialize
+    // In production, validate user as a real Pubkey and fetch from blockchain
     const mockReputation = {
-      user: user,
-      score: 25,
-      sessionsCompleted: 3,
-      totalDuration: 180, // minutes
-      peerRatings: [5, 4, 5],
-      lastUpdated: Date.now(),
+      reputationScore: 74,
+      overallScore: 74,
+      totalSessions: 28,
+      sessionsCompleted: 28,
+      avgRating: 4.6,
+      fundingReceived: 2.5,
+      learningStreak: 5,
+      peerEndorsements: 15,
+      reliabilityScore: 82,
+      expertiseScore: 68,
+      contributionScore: 71,
+      level: "APPRENTICE",
+      rank: "TOP 35%",
     }
 
     return NextResponse.json({

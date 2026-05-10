@@ -2,14 +2,14 @@ import { NextRequest, NextResponse } from "next/server"
 import { Connection, PublicKey, Transaction, SystemProgram } from "@solana/web3.js"
 import { Program, AnchorProvider, web3 } from "@coral-xyz/anchor"
 import { getAssociatedTokenAddress, createAssociatedTokenAccountInstruction } from "@solana/spl-token"
-import type { SessionLogRequest } from "@/shared/types"
+
 
 const SOLANA_RPC = process.env.SOLANA_RPC_URL || "https://api.devnet.solana.com"
 const PROGRAM_ID = new PublicKey(process.env.PROGRAM_ID || "Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS")
 
 export async function POST(request: NextRequest) {
   try {
-    const body: SessionLogRequest = await request.json()
+    const body = await request.json()
 
     if (!body.sessionId || !body.student || !body.mentor) {
       return NextResponse.json(

@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server"
 import { Connection, PublicKey } from "@solana/web3.js"
-import type { FundingRequestPayload } from "@/shared/types"
+
 
 const SOLANA_RPC = process.env.SOLANA_RPC_URL || "https://api.devnet.solana.com"
 
 export async function POST(request: NextRequest) {
   try {
-    const body: FundingRequestPayload = await request.json()
+    const body = await request.json()
 
     if (!body.requestId || !body.amount || !body.reason) {
       return NextResponse.json(
@@ -58,7 +58,7 @@ export async function GET(request: NextRequest) {
       {
         requestId: "request1",
         requester: user || "",
-        amount: 1000000000, // 1 SOL in lamports
+        amount: 1.0, // SOL
         reason: "Need funding for course materials",
         status: "Pending",
         reputationScore: 25,
